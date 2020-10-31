@@ -6,7 +6,7 @@ class Graph:
 
     def __init__(self, graph):
         self.vertices = graph[0]
-        self.mst = []  # minimum spanning tree
+        self.mst = []                                   # minimum spanning tree
         self.node_list = graph[1]
         self.size = []
         self.name = []
@@ -46,7 +46,7 @@ class Graph:
         for node in self.mst:
             path.append(node)
             mst_weight += node[2]
-        # return path, mst_weight
+
         res = dict()
         for node in self.mst:
             v, w = node[0], node[1]
@@ -80,7 +80,7 @@ def make_graph(filename):
             node_list.append(list(zip(node_v, node_w, weight)))
 
         flat_list = [item for sublist in node_list for item in sublist]
-        flat_list.sort(key=lambda x: -x[2])  # sorts a list of nodes by weight (Descending)
+        flat_list.sort(key=lambda x: -x[2])                 # sorts a list of nodes by weight (Descending)
 
     return Graph((vertices_num, flat_list))
 
