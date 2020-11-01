@@ -56,19 +56,16 @@ class Graph:
                 res[w] = []
             res[v].append(w)
             res[w].append(v)
-        # print(res)
         sorted_res = dict(sorted(res.items()))
-        # print(sorted_res)
         for item in sorted_res.values():
             item.sort()
-        # print(sorted_res)
         return sorted_res, mst_weight
 
 
 def make_graph(filename):
     """Input handler"""
     with open(filename) as file:
-        vertices_num = int(file.readline().strip()[0])
+        vertices_num = int(file.readline().strip())
         data = [x.strip().split() for x in file.readlines()]
         node_list = list()
 
@@ -76,11 +73,11 @@ def make_graph(filename):
             lst = lst[:-1]
             node_v, node_w, weight = [int(x) - 1 for x in lst[::2]], \
                                      [i for i in [idx] * len(data)], \
-                                     [int(z) for z in lst[1::2]]  # x-1 is to keep indices right
+                                     [int(z) for z in lst[1::2]]            # x-1 is to keep indices right
             node_list.append(list(zip(node_v, node_w, weight)))
 
         flat_list = [item for sublist in node_list for item in sublist]
-        flat_list.sort(key=lambda x: -x[2])                 # sorts a list of nodes by weight (Descending)
+        flat_list.sort(key=lambda x: -x[2])                         # sorts a list of nodes by weight (Descending)
 
     return Graph((vertices_num, flat_list))
 
@@ -89,19 +86,17 @@ def write_out(data):
     """Output handler"""
     sorted_dict, weight = data[0], data[1]
     with open('out.txt', 'w') as file:
-        # if sorted_dict and weight:
         for value in sorted_dict.values():
             for item in value:
                 file.write(str(item + 1))
                 file.write(' ')
             file.write('0' + '\n')
         file.write(str(weight))
-        # else:
-        #     file.write('N')
 
 
 if __name__ == '__main__':
     graph1 = make_graph('in.txt')
+    # print(graph1)
     graph1.get_mst()
     # print(graph1.get_mst_weight_and_path())
     write_out(graph1.get_mst_weight_and_path())
